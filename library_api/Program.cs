@@ -15,13 +15,16 @@ builder.Services.AddDbContext<LibraryDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("Postgres")));
 
 builder.Services.AddScoped<IBookRepository, BookRepository>(); 
-builder.Services.AddScoped<IBookService, BookService>();
+builder.Services.AddScoped<IBookService, BookServices>();
+builder.Services.AddScoped<IAuthorRepository, AuthorRepository>();
+builder.Services.AddScoped<IAuthorService, AuthorServices>();
 
 
 var app = builder.Build();
 
 app.UseHttpsRedirection();
 
+app.MapAuthorEndpoints();
 app.MapBookEndpoints();
 
 app.Run();

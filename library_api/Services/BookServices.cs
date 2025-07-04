@@ -1,11 +1,10 @@
 using library_api.DTOs;
 using library_api.Extensions;
 using library_api.Interfaces;
-using library_api.Models;
 
 namespace library_api.Services;
 
-public class BookService(IBookRepository repository) : IBookService
+public class BookServices(IBookRepository repository) : IBookService
 {
     public async Task<BookDto?> GetBookByIdAsync(int id)
     {
