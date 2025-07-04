@@ -20,16 +20,8 @@ builder.Services.AddScoped<IBookService, BookService>();
 
 var app = builder.Build();
 
-// Auto-create database
-using (var scope = app.Services.CreateScope())
-{
-    var db = scope.ServiceProvider.GetRequiredService<LibraryDbContext>();
-    db.Database.EnsureCreated();
-}
-
 app.UseHttpsRedirection();
 
 app.MapBookEndpoints();
-
 
 app.Run();

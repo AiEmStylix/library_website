@@ -13,6 +13,12 @@ public class LibraryDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        base.OnModelCreating(modelBuilder);
+
+        modelBuilder.Entity<Book>(entity =>
+        {
+            entity.Property(b => b.PublishedDate).HasDefaultValueSql("CURRENT_TIMESTAMP");
+        });
         // Automatically adds WHERE Clause for soft delete
         modelBuilder.Entity<Book>().HasQueryFilter(b => !b.IsDeleted);
         modelBuilder.Entity<Author>().HasQueryFilter(a => !a.IsDeleted);
