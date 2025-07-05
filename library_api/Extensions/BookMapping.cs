@@ -10,8 +10,8 @@ public static class BookMapping
         new(
             book.Id,
             book.Title,
-            book.Author.Name,      // Correctly access the Author's name
-            book.Publisher.Name,   // Correctly access the Publisher's name
+            book.Author?.Name ?? "Unknown Author",
+            book.Publisher?.Name ?? "Unknown Publisher",   // Correctly access the Publisher's name
             book.Isbn,
             book.PublishedDate
         );

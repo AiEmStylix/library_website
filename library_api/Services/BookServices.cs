@@ -17,7 +17,7 @@ public class BookServices(IBookRepository repository) : IBookService
     {
         var books = await repository.GetAllAsync();
         
-        return books.Select(b => b.ToDto());
+        return books.Select(book => book.ToDto());
     }
 
     public async Task<BookDto> CreateBookAsync(CreateBookDto createBookDto)
