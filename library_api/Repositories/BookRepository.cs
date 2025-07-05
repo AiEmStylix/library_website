@@ -25,4 +25,13 @@ public class BookRepository(LibraryDbContext context) : Repository<Book>(context
             .Include(b => b.Publisher)
             .ToListAsync();
     }
+
+    public async Task<Book?> GetByIdUnfilteredAsync(int id)
+    {
+        return await context.Books
+            .IgnoreQueryFilters() // This MUST be here, before the Includes
+            .Include(b => b.Author)
+            .Include(b => b.Publisher)
+            .FirstOrDefaultAsync(b => b.Id == id);
+    }
 }

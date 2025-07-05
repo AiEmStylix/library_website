@@ -31,12 +31,13 @@ public class BookServices(IBookRepository repository) : IBookService
 
     public async Task<bool> UpdateBookAsync(int id, UpdateBookDto updateBookDto)
     {
-        var existingBook = await repository.GetByIdAsync(id);
-        
+        // Make sure you are calling "GetByIdUNFILTEREDAsync" here
+        var existingBook = await repository.GetByIdUnfilteredAsync(id);
+    
         if (existingBook is null) return false;
-        
+    
+        // ... rest of the method
         existingBook.UpdateFromDto(updateBookDto);
-        
         repository.Update(existingBook);
         await repository.SaveChangesAsync();
         return true;
@@ -44,8 +45,8 @@ public class BookServices(IBookRepository repository) : IBookService
 
     public async Task<bool> DeleteBookAsync(int id)
     {
-        var bookToDelete = await repository.GetByIdAsync(id);
-        if (bookToDelete is null) return false;
+        var bookToDelete = await repository.GetByIdUnfilteredAsync(id);
+        if (bookToDelete is null || bookToDelete.IsDeleted) return false;
         repository.Delete(bookToDelete);
         await repository.SaveChangesAsync();
         return true;

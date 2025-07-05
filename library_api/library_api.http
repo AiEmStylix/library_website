@@ -1,6 +1,64 @@
 @library_api_HostAddress = http://localhost:5200
+@book_id = 1
+@author_id = 1
+@publisher_id = 1
 
-GET {{library_api_HostAddress}}/weatherforecast/
+###
+# Get all books
+# @name GetAllBooks
+GET {{library_api_HostAddress}}/books/
 Accept: application/json
 
 ###
+# Get a single book by its ID
+# @name GetBookById
+GET {{library_api_HostAddress}}/books/{{book_id}}
+Accept: application/json
+
+###
+# Create a new book
+# This request assumes you have an author and publisher with ID 1 in your database.
+# @name CreateBook
+POST {{library_api_HostAddress}}/books/
+Content-Type: application/json
+Accept: application/json
+
+{
+  "title": "Dune",
+  "isbn": "978-0441013593",
+  "publishedDate": "1965-08-01T00:00:00Z",
+  "points": 100,
+  "authorId": {{author_id}},
+  "publisherId": {{publisher_id}}
+}
+
+
+###
+# Update an existing book
+# This request updates the book with the ID specified in the book_id variable.
+# @name UpdateBook
+PUT {{library_api_HostAddress}}/books/{{book_id}}
+Content-Type: application/json
+Accept: application/json
+
+{
+  "title": "Dune Messiah1",
+  "isbn": "978-0441172698",
+  "publishedDate": "1969-10-15T00:00:00Z",
+  "points": 120,
+  "authorId": {{author_id}},
+  "publisherId": {{publisher_id}}
+}
+
+
+###
+# Delete a book by its ID
+# @name DeleteBook
+DELETE {{library_api_HostAddress}}/books/{{book_id}}
+Accept: application/json
+
+###
+# Get a author 
+# @name GetAllAuthors
+GET {{library_api_HostAddress}}/authors
+Accept: application/json

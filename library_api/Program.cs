@@ -18,6 +18,8 @@ builder.Services.AddScoped<IBookRepository, BookRepository>();
 builder.Services.AddScoped<IBookService, BookServices>();
 builder.Services.AddScoped<IAuthorRepository, AuthorRepository>();
 builder.Services.AddScoped<IAuthorService, AuthorServices>();
+builder.Services.AddScoped<IPublisherRepository, PublisherRepository>();
+builder.Services.AddScoped<IPublisherService, PublisherService>();
 
 
 var app = builder.Build();
@@ -25,6 +27,7 @@ var app = builder.Build();
 app.UseHttpsRedirection();
 
 app.MapAuthorEndpoints();
+app.MapPublisherEndpoint();
 app.MapBookEndpoints();
 
 app.Run();
