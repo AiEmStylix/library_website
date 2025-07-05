@@ -12,8 +12,8 @@ using library_api.Data;
 namespace library_api.Migrations
 {
     [DbContext(typeof(LibraryDbContext))]
-    [Migration("20250703140038_InitPostgres")]
-    partial class InitPostgres
+    [Migration("20250705054825_Init database")]
+    partial class Initdatabase
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -70,8 +70,13 @@ namespace library_api.Migrations
                         .HasMaxLength(20)
                         .HasColumnType("character varying(20)");
 
+                    b.Property<int>("Points")
+                        .HasColumnType("integer");
+
                     b.Property<DateTime>("PublishedDate")
-                        .HasColumnType("timestamp with time zone");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("timestamp with time zone")
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.Property<int>("PublisherId")
                         .HasColumnType("integer");

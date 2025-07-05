@@ -14,6 +14,9 @@ public class Book
     public string? Isbn { get; set; }
     public DateTime PublishedDate { get; set; }
     
+    [Required]
+    public int Points { get; set; } = 0;
+    
     // --- Relationships ---
     public int AuthorId { get; set; }
     public Author Author { get; set; } = null!;
