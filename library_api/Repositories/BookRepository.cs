@@ -7,12 +7,9 @@ namespace library_api.Repositories;
 
 public class BookRepository(LibraryDbContext context) : Repository<Book>(context), IBookRepository
 {
-    // The primary constructor 'BookRepository(DataContext context)' automatically
-    // captures the 'context' and passes it to the base 'Repository<Book>' constructor.
-    // The class body can be used to implement any custom methods defined in IBookRepository.
     public override async Task<Book?> GetByIdAsync(int id)
     {
-        return await context.Books
+        return await Context.Books
             .Include(b => b.Author)
             .Include(b => b.Publisher)
             .FirstOrDefaultAsync(b => b.Id == id);
@@ -20,7 +17,7 @@ public class BookRepository(LibraryDbContext context) : Repository<Book>(context
 
     public override async Task<IEnumerable<Book>> GetAllAsync()
     {
-        return await context.Books
+        return await Context.Books
             .Include(b => b.Author)
             .Include(b => b.Publisher)
             .ToListAsync();
@@ -28,7 +25,7 @@ public class BookRepository(LibraryDbContext context) : Repository<Book>(context
 
     public async Task<Book?> GetByIdUnfilteredAsync(int id)
     {
-        return await context.Books
+        return await Context.Books
             .IgnoreQueryFilters() // This MUST be here, before the Includes
             .Include(b => b.Author)
             .Include(b => b.Publisher)
