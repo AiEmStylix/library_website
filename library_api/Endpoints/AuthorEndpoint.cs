@@ -5,7 +5,7 @@ namespace library_api.Endpoints;
 
 public static class AuthorEndpoint
 {
-    public static void MapAuthorEndpoints(this IEndpointRouteBuilder app)
+    public static void MapAuthorEndpoints(this RouteGroupBuilder app)
     {
         var authorGroup = app.MapGroup("/authors").WithTags("Authors");
 

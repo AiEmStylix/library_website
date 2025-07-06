@@ -5,7 +5,7 @@ namespace library_api.Endpoints;
 
 public static class PublisherEndpoint
 {
-    public static void MapPublisherEndpoint(this IEndpointRouteBuilder app)
+    public static void MapPublisherEndpoint(this RouteGroupBuilder app)
     {
         var publisherGroup = app.MapGroup("/publishers").WithTags("Publishers");
 
