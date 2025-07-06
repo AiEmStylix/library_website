@@ -26,8 +26,10 @@ var app = builder.Build();
 
 app.UseHttpsRedirection();
 
-app.MapAuthorEndpoints();
-app.MapPublisherEndpoint();
-app.MapBookEndpoints();
+var apiV1Group = app.MapGroup("/api/v1");
+
+apiV1Group.MapAuthorEndpoints();
+apiV1Group.MapPublisherEndpoint();
+apiV1Group.MapBookEndpoints();
 
 app.Run();

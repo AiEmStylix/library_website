@@ -12,7 +12,7 @@ namespace library_api.Endpoints
         /// Maps all endpoints related to books.
         /// </summary>
         /// <param name="app">The endpoint route builder to map the routes to.</param>
-        public static void MapBookEndpoints(this IEndpointRouteBuilder app)
+        public static void MapBookEndpoints(this RouteGroupBuilder app)
         {
             // Group endpoints for better organization and to apply common settings
             var bookGroup = app.MapGroup("/books").WithTags("Books");

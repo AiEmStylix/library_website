@@ -6,13 +6,13 @@ namespace library_api.Repositories;
 
 public class Repository<T> : IRepository<T> where T : class
 {
-    private readonly LibraryDbContext _context;
+    protected readonly LibraryDbContext Context;
     private readonly DbSet<T> _dbSet;
 
     protected Repository(LibraryDbContext context)
     {
-        _context = context;
-        _dbSet = _context.Set<T>();
+        Context = context;
+        _dbSet = Context.Set<T>();
     }
 
     public virtual async Task<T?> GetByIdAsync(int id)
@@ -33,12 +33,12 @@ public class Repository<T> : IRepository<T> where T : class
     public virtual void Update(T entity)
     {
         _dbSet.Attach(entity);
-        _context.Entry(entity).State = EntityState.Modified;
+        Context.Entry(entity).State = EntityState.Modified;
     }
 
     public virtual void Delete(T entity)
     {
-        if (_context.Entry(entity).State == EntityState.Detached)
+        if (Context.Entry(entity).State == EntityState.Detached)
         {
             _dbSet.Attach(entity);
         }
@@ -47,6 +47,6 @@ public class Repository<T> : IRepository<T> where T : class
 
     public virtual async Task<int> SaveChangesAsync()
     {
-        return await _context.SaveChangesAsync();
+        return await Context.SaveChangesAsync();
     }
 }
