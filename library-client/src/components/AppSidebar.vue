@@ -11,10 +11,15 @@ import {
   Building2,
   UserCheck,
   BarChart3,
+  Library,
+  Moon,
 } from 'lucide-vue-next'
+
+import { Icon } from '@iconify/vue'
 import {
   Sidebar,
   SidebarContent,
+  SidebarFooter,
   SidebarGroup,
   SidebarGroupContent,
   SidebarGroupLabel,
@@ -23,6 +28,10 @@ import {
   SidebarMenuItem,
   SidebarRail,
 } from '@/components/ui/sidebar'
+import SidebarHeader from './ui/sidebar/SidebarHeader.vue'
+import { useColorMode } from '@vueuse/core'
+import Switch from './ui/switch/Switch.vue'
+import { computed } from 'vue'
 
 const data = {
   navMain: [
@@ -87,6 +96,21 @@ const data = {
 </script>
 <template>
   <Sidebar variant="inset" collapsible="icon">
+    <SidebarHeader>
+      <SidebarMenuButton size="lg" asChild>
+        <a href="/">
+          <div
+            class="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground"
+          >
+            <Library />
+          </div>
+          <div class="flex flex-col gap-0.5 leading-none">
+            <span class="font-semibold">LibraryMS</span>
+            <span class="text-xs">Management System</span>
+          </div>
+        </a>
+      </SidebarMenuButton>
+    </SidebarHeader>
     <SidebarContent>
       <SidebarGroup v-for="group in data.navMain" :key="group.title">
         <SidebarGroupLabel>
@@ -106,6 +130,11 @@ const data = {
         </SidebarGroupContent>
       </SidebarGroup>
     </SidebarContent>
+    <SidebarFooter>
+      <SidebarMenu>
+        <SidebarMenuButton> </SidebarMenuButton>
+      </SidebarMenu>
+    </SidebarFooter>
     <SidebarRail />
   </Sidebar>
 </template>
