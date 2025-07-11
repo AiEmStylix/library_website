@@ -1,21 +1,6 @@
 <script setup lang="ts">
-import {
-  Calendar,
-  Home,
-  Inbox,
-  Search,
-  Settings,
-  FileText,
-  BookOpen,
-  Users,
-  Building2,
-  UserCheck,
-  BarChart3,
-  Library,
-  Moon,
-} from 'lucide-vue-next'
+import { Library } from 'lucide-vue-next'
 
-import { Icon } from '@iconify/vue'
 import {
   Sidebar,
   SidebarContent,
@@ -29,70 +14,13 @@ import {
   SidebarRail,
 } from '@/components/ui/sidebar'
 import SidebarHeader from './ui/sidebar/SidebarHeader.vue'
-import { useColorMode } from '@vueuse/core'
-import Switch from './ui/switch/Switch.vue'
-import { computed } from 'vue'
+import type { NavGroup } from '@/types/navigations'
 
-const data = {
-  navMain: [
-    {
-      title: 'Library Management',
-      items: [
-        {
-          title: 'Books',
-          url: '/books',
-          icon: BookOpen,
-          isActive: true,
-        },
-        {
-          title: 'Authors',
-          url: '/authors',
-          icon: Users,
-        },
-        {
-          title: 'Publishers',
-          url: '/publishers',
-          icon: Building2,
-        },
-        {
-          title: 'Members',
-          url: '/members',
-          icon: UserCheck,
-        },
-      ],
-    },
-    {
-      title: 'Operations',
-      items: [
-        {
-          title: 'Borrowing',
-          url: '/borrowing',
-          icon: Calendar,
-        },
-        {
-          title: 'Returns',
-          url: '/returns',
-          icon: FileText,
-        },
-        {
-          title: 'Reports',
-          url: '/reports',
-          icon: BarChart3,
-        },
-      ],
-    },
-    {
-      title: 'System',
-      items: [
-        {
-          title: 'Settings',
-          url: '/settings',
-          icon: Settings,
-        },
-      ],
-    },
-  ],
+interface Props {
+  groups: NavGroup[]
 }
+
+const props = defineProps<Props>()
 </script>
 <template>
   <Sidebar variant="inset" collapsible="icon">
@@ -112,7 +40,7 @@ const data = {
       </SidebarMenuButton>
     </SidebarHeader>
     <SidebarContent>
-      <SidebarGroup v-for="group in data.navMain" :key="group.title">
+      <SidebarGroup v-for="group in props.groups" :key="group.title">
         <SidebarGroupLabel>
           {{ group.title }}
         </SidebarGroupLabel>
